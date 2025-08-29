@@ -3,6 +3,6 @@ Website = "https://github.com/essentialist-app/essentialist"
 [Details]
   Icon = "essentialist-icon.png"
   Name = "Essentialist"
-  ID = "com.github.essentialist-app.essentialist"
-  Version = "0.2.7"
-  Build = 61
+  ID = "io.github.essentialistapp.essentialist"
+  Version = "0.2.9"
+  Build = 1
