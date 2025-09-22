@@ -14,6 +14,7 @@ type Deck struct {
 	Cards      []Card
 	Name       string
 	MetaWriter func() (io.WriteCloser, error)
+	LogWriter func() (io.WriteCloser, error)
 }
 
 func loadCards(accessor DeckAccessor) ([]Card, error) {
@@ -34,7 +35,7 @@ func newMetaCards(accessor DeckAccessor) error {
 	metas := make([]Meta, 0)
 	metaWriter, err := accessor.MetaWriter()
 	if err != nil {
-		return fmt.Errorf("Cannot create DB: %v", err)
+		return fmt.Errorf("cannot create DB: %v", err)
 	}
 	defer metaWriter.Close()
 
@@ -77,7 +78,8 @@ func NewEmptyDeck(name string) *Deck {
 	return &Deck{
 		Cards:      []Card{},
 		Name:       name,
-		MetaWriter: func() (io.WriteCloser, error) { return nil, fmt.Errorf("%s", name) },
+		MetaWriter: func() (io.WriteCloser, error) { return nil, fmt.Errorf("Dummy MetaWriter for %s", name) },
+		LogWriter: func() (io.WriteCloser, error) { return nil, fmt.Errorf("Dummy LogWriter for %s", name) },
 	}
 }
 
@@ -113,6 +115,7 @@ func NewDeck(accessor DeckAccessor) (*Deck, error) {
 		Cards:      cards,
 		Name:       accessor.DeckName(),
 		MetaWriter: accessor.MetaWriter,
+		LogWriter:  accessor.LogWriter,
 	}, nil
 }
 
