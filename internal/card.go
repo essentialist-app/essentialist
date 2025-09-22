@@ -22,6 +22,7 @@ type Card struct {
 	Answer   string
 	DeckName string
 	Meta     *Meta
+	Log      Log
 }
 
 func (c Card) Review(s Score) {
