@@ -111,6 +111,7 @@ func (g *Game) Review(s Score) {
 			g.success++
 		}
 		g.cards[g.index].Meta.Review(s)
+		g.cards[g.index].Log.Record(s)
 		g.index++
 	}
 	if g.index == len(g.cards) {
@@ -155,6 +156,7 @@ func (g *Game) IsFinished() bool {
 
 func (g *Game) Save() {
 	for _, d := range g.decks {
+		defer WriteLog(d)
 		defer d.SaveDeckMeta()
 	}
 }
