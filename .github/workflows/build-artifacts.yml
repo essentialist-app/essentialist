@@ -66,7 +66,7 @@ jobs:
         go-version: 'stable'
 
     - name: Install fyne
-      run: go install fyne.io/fyne/v2/cmd/fyne@latest
+      run: go install fyne.io/tools/cmd/fyne@latest
 
     - name: Build essentialist
       run: cd cmd/essentialist && ~/go/bin/fyne package -os android && cp Essentialist.apk ../.. && cd -
@@ -88,17 +88,11 @@ jobs:
         with:
           go-version: 'stable'
 
-      - name: Build essentialist (intel)
-        run: go build -o ./essentialist-mac-os-intel ./cmd/essentialist
-        env:
-          CGO_ENABLED: 1
-          GOARCH: amd64
+      - name: Install fyne
+        run: go install fyne.io/tools/cmd/fyne@latest
 
-      - name: Build essentialist (arm64)
-        run: go build -o ./essentialist-mac-os-arm64 ./cmd/essentialist
-        env:
-          CGO_ENABLED: 1
-          GOARCH: arm64
+      - name: Build essentialist
+        run: cd cmd/essentialist && ~/go/bin/fyne package -os darwin && ls && find .
 
       - name: Upload Artifact (intel)
         uses: actions/upload-artifact@v4

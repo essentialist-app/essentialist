@@ -104,8 +104,9 @@ go build ./cmd/essentialist
 <p>
 
 ```shell
-CGO_ENABLED=1 go build ./cmd/essentialist
-./essentialist
+go install fyne.io/tools/cmd/fyne@latest
+cd cmd/essentialist
+fyne package -os darwin
 ```
 
 </p>
@@ -130,14 +131,15 @@ go build -x -o essentialist.exe ./cmd/essentialist
 1. Build the Android APK with:
 
   ```shell
-  cd cmd/essentialist
-  fyne package -os android
+go install fyne.io/tools/cmd/fyne@latest
+cd cmd/essentialist
+fyne package -os android
   ```
 
 1. Plug your phone over USB and install the APK with:
 
   ```shell
-  adb install Essentialist.apk
+adb install Essentialist.apk
   ```
 
 Use the local storage (of your Android device) to import flash cards. For
