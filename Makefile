@@ -55,4 +55,14 @@ install: all
 	install -m 644 cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.metainfo.xml $(DESTDIR)$(METADIR)/
 
 
-.PHONY: all clean install
+flatpak:
+	@echo "--> Making flatpak..."
+	@sed -i '/      - type: git/,/        tag:/d' cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.yml
+	@sed -i '/    sources:/a\      - type: dir\n        path: ../../..' cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.yml
+	@(cd cmd/essentialist/flatpak && flatpak-builder --force-clean --repo=repo build-dir io.github.essentialist_app.essentialist.yml)
+	@(cd cmd/essentialist/flatpak && flatpak build-bundle repo ../../../essentialist.flatpak io.github.essentialist_app.essentialist)
+	@echo "--> Reverting changes to flatpak config file..."
+	@git checkout -- cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.yml
+
+
+.PHONY: all clean install flatpak
