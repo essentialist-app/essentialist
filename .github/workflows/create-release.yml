@@ -1,26 +1,50 @@
 name: Create Release
 
 on:
-  push:
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New version number (e.g., 1.2.3)'
+        required: true
 
 permissions:
   contents: write
   packages: write
 
 jobs:
-  build-artifacts:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update version
+        run: |
+          sed -i -e 's/[0-9]\+\.[0-9]\+\.[0-9]\+/'${{ inputs.version }}'/' \
+              cmd/essentialist/FyneApp.toml \
+              cmd/essentialist/about.go \
+              cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.metainfo.xml \
+              cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.yml
+
+      - name: Commit and push version update
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'v${{ inputs.version }}'
+          branch: main
+          file_pattern: 'cmd/essentialist/FyneApp.toml cmd/essentialist/about.go cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.metainfo.xml cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.yml'
+
+  build:
+    needs: release
     uses: ./.github/workflows/build-artifacts.yml
     secrets: inherit
 
-  create-release:
-    needs: build-artifacts
+  tag:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch artifcats
-        uses: actions/download-artifact@v4
-
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "Essentialist for Linux (amd64)/essentialist-linux,Essentialist for Linux (flatpak)/essentialist.flatpak,Essentialist for Windows (x64)/essentialist.exe,Essentialist for MacOS (arm64)/essentialist-mac-os-arm64,Essentialist for MacOS (intel)/essentialist-mac-os-intel,Essentialist for Android (APK)/Essentialist.apk"
+      - uses: actions/checkout@v4
+      - name: Create and push tag
+        run: |
+          git tag v${{ inputs.version }}
+          git push origin v${{ inputs.version }}

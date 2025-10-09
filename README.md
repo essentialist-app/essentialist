@@ -182,17 +182,12 @@ go-licenses report ./... --template cmd/essentialist/licenses.tpl > cmd/essentia
 
 ### How to make a new version
 
-- Pick a new version X.Y.Z according to the [versioning guidelines](./.github/CONTRIBUTING.md).
-- Update the version number in various files and tag it.
+A new version can be created from the [Release workflow](https://github.com/essentialist-app/essentialist/actions/workflows/release.yml).
 
-```shell
-VERSION=X.Y.Z
-sed -i -e 's/[0-9]\+\.[0-9]\+\.[0-9]\+/'$VERSION'/' \
-    cmd/essentialist/FyneApp.toml \
-    cmd/essentialist/about.go \
-    cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.metainfo.xml
-    cmd/essentialist/flatpak/io.github.essentialist_app.essentialist.yml \
-git add -u
-git commit -m "v$VERSION"
-git tag v$VERSION
-```
+1. Go to the "Actions" tab in the GitHub repository.
+2. Select the "Create Release" workflow.
+3. Click on "Run workflow".
+4. Enter the new version number (e.g., 1.2.3) in the "Version" input field.
+5. Click on "Run workflow".
+
+The workflow will automatically update the version number in the files, commit the changes, build the application for all platforms, and create a new Git tag. This will trigger the release creation workflow, which will create a new release on GitHub with the build artifacts.
