@@ -7,6 +7,8 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 
+	"runtime"
+
 	"github.com/essentialist-app/essentialist/cmd/essentialist/i18n"
 	"github.com/essentialist-app/essentialist/internal"
 )
@@ -182,7 +184,7 @@ func (s *SettingsScreen) Show(app Application) {
 	if fyne.CurrentDevice().IsMobile() {
 		objects = append(objects, s.importDirectoryButton(app))
 		objects = append(objects, s.cleanUpStorageButton(app))
-	} else {
+	} else if runtime.GOOS != "js" && runtime.GOOS != "wasm" {
 		objects = append(objects, s.changeDirectoryButton(app))
 	}
 	objects = append(objects, s.changeThemeSelector(app))

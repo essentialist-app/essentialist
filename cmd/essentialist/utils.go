@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/url"
 	"path"
+	"runtime"
 	"strings"
 	"sync"
 
@@ -31,8 +32,8 @@ const (
 
 	// possible themes in the settings
 	defaultTheme themeName = "user default"
-	lightTheme themeName = "light"
-	darkTheme themeName = "dark"
+	lightTheme   themeName = "light"
+	darkTheme    themeName = "dark"
 )
 
 // overrideDirectory is used to specify a directory as an argument.
@@ -56,9 +57,9 @@ func getTheme() fyne.Theme {
 	themeName := getThemeName()
 	switch themeName {
 	case lightTheme:
-    return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantLight}
+		return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantLight}
 	case darkTheme:
-    return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantDark}
+		return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantDark}
 	case defaultTheme:
 		return theme.DefaultTheme()
 	}
@@ -105,6 +106,10 @@ func setRepetitionLenght(nbCards int) {
 // overrideDirectory is unset, getDirectory returns the dirextory from the
 // settings.
 func getDirectory() fyne.URI {
+	if runtime.GOOS == "js" || runtime.GOOS == "wasm" {
+		// On web we return dummy URI, loadDecks handles the actual loading
+		return storage.NewFileURI("/remote")
+	}
 	if overrideDirectory != "" {
 		return storage.NewFileURI(overrideDirectory)
 	}
@@ -128,6 +133,9 @@ func getDirectory() fyne.URI {
 }
 
 func setDirectory(dir fyne.URI) {
+	if runtime.GOOS == "js" || runtime.GOOS == "wasm" {
+		return
+	}
 	prefs := fyne.CurrentApp().Preferences()
 	prefs.SetString(directoryEntry, dir.String())
 }
@@ -285,6 +293,9 @@ func dbFile(file fyne.URI) (fyne.URI, error) {
 }
 
 func loadDecks() ([]internal.DeckAccessor, error) {
+	if runtime.GOOS == "js" || runtime.GOOS == "wasm" {
+		return fetchRemoteDecks()
+	}
 	return loadDir(getDirectory())
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"runtime"
 	"sort"
 
 	"fyne.io/fyne/v2"
@@ -60,7 +61,7 @@ func (s *SplashScreen) Show(app Application) {
 	// Welcome message when the application is launched for the first time.
 	prefs := fyne.CurrentApp().Preferences()
 	dir := prefs.StringWithFallback("directory", "")
-	if dir == "" {
+	if dir == "" && runtime.GOOS != "js" && runtime.GOOS != "wasm" {
 		topBar := newWelcomeTopBar(app)
 		welcomeButton := widget.NewButton(welcomeMessage, func() {
 			app.Display(NewSettingsScreen())
