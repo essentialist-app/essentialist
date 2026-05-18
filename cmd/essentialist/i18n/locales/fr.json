@@ -1,7 +1,7 @@
 {
     "congratulations": "Félicitations !",
     "press_to_continue": "Appuyez pour continuer",
-    "help_content": "Essentialist est une application de cartes mémoire qui vous aide à apprendre et à mémoriser des informations efficacement.\n\nUtilisation:\n- Utilisez les touches fléchées pour naviguer dans les différentes sections de l'application (Accueil, Aide, Paramètres).\n- Dans la section Accueil, vous pouvez réviser vos cartes mémoire.\n- Dans la section Paramètres, vous pouvez configurer l'application à votre guise.\n- Appuyez sur Entrée pour sélectionner ou confirmer une action.\n- Appuyez sur Échap pour revenir en arrière ou annuler une action.",
+    "help_content": "Essentialist est une application de cartes mémoire qui vous aide à apprendre et à mémoriser des informations efficacement.\n\nUtilisation:\n- Utilisez les touches fléchées pour naviguer dans les différentes sections de l'application (Accueil, Aide, Paramètres).\n- Dans la section Accueil, vous pouvez réviser vos cartes mémoire.\n- Dans la section Paramètres, vous pouvez configurer l'application à votre guise.\n\nRaccourcis:\n- Entrée : Sélectionner ou confirmer une action / Voir la réponse\n- Échap ou q : Revenir en arrière ou annuler / Afficher l'accueil\n- 1 : Évaluer la carte comme \"À revoir\" (Échec)\n- 2 : Évaluer la carte comme \"Difficile\"\n- 3 : Évaluer la carte comme \"Bon\"\n- 4 : Évaluer la carte comme \"Facile\"\n- s ou n : Passer la carte\n- p : Aller à la carte précédente\n- w : Enregistrer la session",
     "no_deck_found": "Aucun paquet de cartes trouvé dans %s",
     "failed_to_load": "Échec du chargement de %s : %s",
     "deck_progress": "%s (%.0f%% sur %d)",

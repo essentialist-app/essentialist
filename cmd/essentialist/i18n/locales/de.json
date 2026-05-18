@@ -1,7 +1,7 @@
 {
     "congratulations": "Herzlichen Glückwunsch!",
     "press_to_continue": "Drücken Sie eine Taste, um fortzufahren",
-    "help_content": "Essentialist ist eine Lernkartenanwendung, die Ihnen hilft, Informationen effizient zu lernen und zu behalten.\n\nVerwendung:\n- Verwenden Sie die Pfeiltasten, um durch die verschiedenen Bereiche der Anwendung zu navigieren (Startseite, Hilfe, Einstellungen).\n- Im Bereich 'Startseite' können Sie Ihre Lernkarten überprüfen.\n- Im Bereich 'Einstellungen' können Sie die Anwendung nach Ihren Wünschen konfigurieren.\n- Drücken Sie die Eingabetaste, um eine Aktion auszuwählen oder zu bestätigen.\n- Drücken Sie die Esc-Taste, um zurückzugehen oder eine Aktion abzubrechen.",
+    "help_content": "Essentialist ist eine Lernkartenanwendung, die Ihnen hilft, Informationen effizient zu lernen und zu behalten.\n\nVerwendung:\n- Verwenden Sie die Pfeiltasten, um durch die verschiedenen Bereiche der Anwendung zu navigieren (Startseite, Hilfe, Einstellungen).\n- Im Bereich 'Startseite' können Sie Ihre Lernkarten überprüfen.\n- Im Bereich 'Einstellungen' können Sie die Anwendung nach Ihren Wünschen konfigurieren.\n\nTastaturkürzel:\n- Eingabetaste: Aktion auswählen oder bestätigen / Antwort anzeigen\n- Esc oder q: Zurückgehen oder abbrechen / Startseite anzeigen\n- 1: Karte mit \"Nochmal\" bewerten (Fehlgeschlagen)\n- 2: Karte mit \"Schwer\" bewerten\n- 3: Karte mit \"Gut\" bewerten\n- 4: Karte mit \"Einfach\" bewerten\n- s oder n: Karte überspringen\n- p: Zur vorherigen Karte gehen\n- w: Sitzung speichern",
     "no_deck_found": "Kein Deck gefunden in %s",
     "failed_to_load": "Fehler beim Laden von %s: %s",
     "deck_progress": "%s (%.0f%% von %d)",

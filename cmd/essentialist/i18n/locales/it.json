@@ -1,7 +1,7 @@
 {
     "congratulations": "Congratulazioni!",
     "press_to_continue": "Premi per continuare",
-    "help_content": "Essentialist è un'applicazione flashcard che ti aiuta a imparare e ricordare le informazioni in modo efficiente.\n\nUtilizzo:\n- Usa i tasti freccia per navigare tra le diverse sezioni dell'applicazione (Home, Aiuto, Impostazioni).\n- Nella sezione Home, puoi ripassare le tue flashcard.\n- Nella sezione Impostazioni, puoi configurare l'applicazione a tuo piacimento.\n- Premi Invio per selezionare o confermare un'azione.\n- Premi Esc per tornare indietro o annullare un'azione.",
+    "help_content": "Essentialist è un'applicazione flashcard che ti aiuta a imparare e ricordare le informazioni in modo efficiente.\n\nUtilizzo:\n- Usa i tasti freccia per navigare tra le diverse sezioni dell'applicazione (Home, Aiuto, Impostazioni).\n- Nella sezione Home, puoi ripassare le tue flashcard.\n- Nella sezione Impostazioni, puoi configurare l'applicazione a tuo piacimento.\n\nScorciatoie:\n- Invio: Seleziona o conferma azione / Vedi risposta\n- Esc o q: Torna indietro o annulla / Mostra menu principale\n- 1: Valuta la carta come \"Ripeti\" (Fallito)\n- 2: Valuta la carta come \"Difficile\"\n- 3: Valuta la carta come \"Buono\"\n- 4: Valuta la carta come \"Facile\"\n- s o n: Salta carta\n- p: Vai alla carta precedente\n- w: Salva sessione",
     "no_deck_found": "Nessun mazzo trovato in %s",
     "failed_to_load": "Impossibile caricare %s: %s",
     "deck_progress": "%s (%.0f%% di %d)",
