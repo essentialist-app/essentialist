@@ -51,21 +51,19 @@ $$
 F = \frac{\frac{a}{b}}{\frac{c}{d}}
 $$
 
-## Summations, Products and Limits
-
-Summations with limits (top and bottom positioning):
+## Solution to the Basel Problem
 
 $$
 \sum_{i=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
 $$
 
-Product operator with limits:
+## Product operator with limits
 
 $$
 \prod_{n=1}^{\infty} (1 - x_n)
 $$
 
-Limit operator with subscript limit centered below:
+## Limit operator with subscript limit centered below
 
 $$
 \lim_{x \to 0} \frac{\sin x}{x} = 1
