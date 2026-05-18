@@ -121,6 +121,50 @@ func (v *visitor) Visit(n ast.Node) ast.Visitor {
 		v.nodes = append(v.nodes, h.Handle(v.p, n, v.state, v.math))
 		return nil
 
+	case *ast.Sup:
+		supNode := v.p.handleNode(n.Node, v.state, v.math)
+		supNode.Shrink()
+
+		if len(v.nodes) > 0 {
+			nucleus := v.nodes[len(v.nodes)-1]
+			sumNode, existingSub, _ := extractLimits(nucleus)
+			if sumNode != nil {
+				v.nodes[len(v.nodes)-1] = v.p.makeLimitsNode(v.state, sumNode, existingSub, supNode)
+			} else {
+				uHList := tex.HListOf([]tex.Node{supNode}, true)
+				uHList.SetShift(-v.state.Font.Size * 0.35)
+				combined := tex.HListOf([]tex.Node{nucleus, uHList}, true)
+				v.nodes[len(v.nodes)-1] = combined
+			}
+		} else {
+			uHList := tex.HListOf([]tex.Node{supNode}, true)
+			uHList.SetShift(-v.state.Font.Size * 0.35)
+			v.nodes = append(v.nodes, uHList)
+		}
+		return nil
+
+	case *ast.Sub:
+		subNode := v.p.handleNode(n.Node, v.state, v.math)
+		subNode.Shrink()
+
+		if len(v.nodes) > 0 {
+			nucleus := v.nodes[len(v.nodes)-1]
+			sumNode, _, existingSup := extractLimits(nucleus)
+			if sumNode != nil {
+				v.nodes[len(v.nodes)-1] = v.p.makeLimitsNode(v.state, sumNode, subNode, existingSup)
+			} else {
+				sHList := tex.HListOf([]tex.Node{subNode}, true)
+				sHList.SetShift(v.state.Font.Size * 0.15)
+				combined := tex.HListOf([]tex.Node{nucleus, sHList}, true)
+				v.nodes[len(v.nodes)-1] = combined
+			}
+		} else {
+			sHList := tex.HListOf([]tex.Node{subNode}, true)
+			sHList.SetShift(v.state.Font.Size * 0.15)
+			v.nodes = append(v.nodes, sHList)
+		}
+		return nil
+
 	case nil:
 		return v
 
@@ -233,8 +277,12 @@ func handleSymbol(p *parser, node ast.Node, state tex.State, math bool) tex.Node
 				ch,
 				p.makeSpace(state, 0.2),
 			}, true)
+		default:
+			return tex.HListOf([]tex.Node{
+				ch,
+				p.makeSpace(state, 0.2),
+			}, true)
 		}
-		panic("not implemented")
 	}
 	return ch
 }
@@ -570,4 +618,110 @@ func isdigit(v byte) bool {
 		return true
 	}
 	return false
+}
+
+func isLimitOperator(node tex.Node) bool {
+	if node == nil {
+		return false
+	}
+	switch n := node.(type) {
+	case *tex.Char:
+		s := n.String()
+		return s == "\\sum" || s == "\\prod" || s == "\\coprod" || s == "\\bigcap" || s == "\\bigcup" || s == "\\bigoplus"
+	case *tex.HList:
+		nodes := n.Nodes()
+		var sb strings.Builder
+		for _, subNode := range nodes {
+			if ch, ok := subNode.(*tex.Char); ok {
+				sb.WriteString(ch.String())
+			}
+		}
+		name := sb.String()
+		if name == "lim" || name == "max" || name == "min" || name == "sup" || name == "inf" || name == "liminf" || name == "limsup" {
+			return true
+		}
+		for _, subNode := range nodes {
+			if isLimitOperator(subNode) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func extractLimits(node tex.Node) (sumNode, subNode, supNode tex.Node) {
+	if node == nil {
+		return nil, nil, nil
+	}
+	if vl, ok := node.(*tex.VList); ok {
+		nodes := vl.Nodes()
+		unpack := func(n tex.Node) tex.Node {
+			if hl, ok := n.(*tex.HList); ok && len(hl.Nodes()) >= 3 {
+				return hl.Nodes()[1]
+			}
+			return n
+		}
+		for i, n := range nodes {
+			unpacked := unpack(n)
+			if isLimitOperator(unpacked) {
+				sumNode = unpacked
+				if i >= 2 {
+					supNode = unpack(nodes[i-2])
+				}
+				if i+2 < len(nodes) {
+					subNode = unpack(nodes[i+2])
+				}
+				return sumNode, subNode, supNode
+			}
+		}
+	}
+	if hl, ok := node.(*tex.HList); ok {
+		for _, n := range hl.Nodes() {
+			if isLimitOperator(n) {
+				return n, nil, nil
+			}
+		}
+	}
+	if isLimitOperator(node) {
+		return node, nil, nil
+	}
+	return nil, nil, nil
+}
+
+func (p *parser) makeLimitsNode(state tex.State, nucleus, subNode, supNode tex.Node) tex.Node {
+	csum := tex.HCentered([]tex.Node{nucleus})
+	var csub, csup *tex.HList
+	width := nucleus.Width()
+	if subNode != nil {
+		csub = tex.HCentered([]tex.Node{subNode})
+		width = math.Max(width, subNode.Width())
+	}
+	if supNode != nil {
+		csup = tex.HCentered([]tex.Node{supNode})
+		width = math.Max(width, supNode.Width())
+	}
+	csum.HPack(width, false)
+	thickness := state.Backend().UnderlineThickness(state.Font, state.DPI)
+	space := thickness * 1.5
+	var elements []tex.Node
+	if csup != nil {
+		csup.HPack(width, false)
+		elements = append(elements, csup)
+		elements = append(elements, tex.VBox(0, space))
+	}
+	elements = append(elements, csum)
+	if csub != nil {
+		csub.HPack(width, false)
+		elements = append(elements, tex.VBox(0, space))
+		elements = append(elements, csub)
+	}
+	vlist := tex.VListOf(elements)
+	var shift float64
+	if csub != nil {
+		shift = csub.Height() + space + nucleus.Depth()
+	} else {
+		shift = 0
+	}
+	vlist.SetShift(shift)
+	return vlist
 }

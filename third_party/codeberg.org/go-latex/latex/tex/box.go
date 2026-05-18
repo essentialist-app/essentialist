@@ -580,6 +580,8 @@ func (lst *HList) vpackDims(width, height, depth *float64, stretch, shrink []flo
 	lst.lst.vpackDims(width, height, depth, stretch, shrink)
 }
 
+func (lst *HList) SetShift(s float64) { lst.lst.shift = s }
+
 // VList is a vertical list of boxes.
 type VList struct {
 	lst List

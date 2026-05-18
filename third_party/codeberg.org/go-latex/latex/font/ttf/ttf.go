@@ -149,7 +149,7 @@ func (be *Backend) getInfo(symbol string, fnt font.Font, dpi float64, math bool)
 	}
 
 	me := font.Metrics{
-		Advance: float64(adv) / 65536 * fnt.Size / 12,
+		Advance: (float64(adv) / (384 * float64(ft.UnitsPerEm()))) * fnt.Size,
 		Height:  height,
 		Width:   width,
 		XMin:    xmin,
