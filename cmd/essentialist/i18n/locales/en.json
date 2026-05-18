@@ -1,16 +1,14 @@
 {
     "congratulations": "Congratulations!",
     "press_to_continue": "Press to continue",
-    "help_content": "Essentialist is a flashcard application that helps you learn and remember information efficiently.\n\nUsage:\n- Use the arrow keys to navigate the different sections of the application (Home, Help, Settings).\n- In the Home section, you can review your flashcards.\n- In the Settings section, you can configure the application to your liking.\n- Press Enter to select or confirm an action.\n- Press Esc to go back or cancel an action.",
+    "help_content": "Essentialist is a flashcard application that helps you learn and remember information efficiently.\n\nUsage:\n- Use the arrow keys to navigate the different sections of the application (Home, Help, Settings).\n- In the Home section, you can review your flashcards.\n- In the Settings section, you can configure the application to your liking.\n\nShortcuts:\n- Enter: Select or confirm action / See answer\n- Esc or q: Go back or cancel / Show home menu\n- 1: Score a card as \"Again\" (Failed)\n- 2: Score a card as \"Hard\"\n- 3: Score a card as \"Good\"\n- 4: Score a card as \"Easy\"\n- s or n: Skip card\n- p: Go to previous card\n- w: Save session",
     "no_deck_found": "No deck found in %s",
     "failed_to_load": "Failed to load %s: %s",
     "deck_progress": "%s (%.0f%% of %d)",
-    "total_blackout": "Total blackout",
-    "perfect_recall": "Perfect recall",
-    "incorrect_difficult": "Incorrect difficult",
-    "correct_difficult": "Correct difficult",
-    "incorrect_easy": "Incorrect easy",
-    "correct_easy": "Correct easy",
+    "score_again": "Again",
+    "score_hard": "Hard",
+    "score_good": "Good",
+    "score_easy": "Easy",
     "import_directory": "Import Directory",
     "change_directory": "Change Directory",
     "10_cards": "10 cards",
@@ -36,5 +34,6 @@
     "please_set_directory": "Please set the directory containing your flashcards.",
     "welcome": "Welcome",
     "language": "Language",
-    "about": "About"
+    "about": "About",
+    "algorithm": "Algorithm"
 }

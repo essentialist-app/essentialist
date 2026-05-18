@@ -41,15 +41,13 @@ A deck is a plain text Markdown file where questions have heading level 1 like:
 
 var (
 	helpAnswers = []string{
-		` Press [0-5] to continue, 's' to skip, 'q' to quit, 'h' for help`,
-		` Press [0-5] to continue, 's' to skip, 'q' to quit, 'h' for help
+		` Press [1-4] to continue, 's' to skip, 'q' to quit, 'h' for help`,
+		` Press [1-4] to continue, 's' to skip, 'q' to quit, 'h' for help
 
-5: Perfect response
-4: Correct response, after some hesitation
-3: Correct response, with serious difficulty
-2: Incorrect response, but upon seeing the answer it seemed easy to remember
-1: Incorrect response, but upon seeing the answer it felt familiar
-0: Total blackout`,
+4: Easy
+3: Good
+2: Hard
+1: Again (fail)`,
 	}
 
 	helpIndex  = 0
@@ -233,18 +231,14 @@ func main() {
 				resize(payload.Width, payload.Height)
 			case "<Space>", "<Enter>":
 				answer()
-			case "0":
-				review(internal.TotalBlackout)
 			case "1":
-				review(internal.IncorrectDifficult)
+				review(internal.ScoreAgain)
 			case "2":
-				review(internal.IncorrectEasy)
+				review(internal.ScoreHard)
 			case "3":
-				review(internal.CorrectDifficult)
+				review(internal.ScoreGood)
 			case "4":
-				review(internal.CorrectEasy)
-			case "5":
-				review(internal.PerfectRecall)
+				review(internal.ScoreEasy)
 			}
 		}
 		if game.IsFinished() {

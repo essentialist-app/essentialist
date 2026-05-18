@@ -1,16 +1,14 @@
 {
     "congratulations": "恭喜！",
     "press_to_continue": "按键继续",
-    "help_content": "Essentialist 是一款抽认卡应用程序，可帮助您有效地学习和记住信息。\n\n用法：\n- 使用箭头键在应用程序的不同部分（主页、帮助、设置）之间导航。\n- 在主页部分，您可以复习您的抽认卡。\n- 在‘设置’部分，您可以根据自己的喜好配置应用程序。\n- 按 Enter 键选择或确认操作。\n- 按 Esc 键返回或取消操作。",
+    "help_content": "Essentialist 是一款抽认卡应用程序，可帮助您有效地学习和记住信息。\n\n用法：\n- 使用箭头键在应用程序的不同部分（主页、帮助、设置）之间导航。\n- 在主页部分，您可以复习您的抽认卡。\n- 在‘设置’部分，您可以根据自己的喜好配置应用程序。\n\n快捷键：\n- Enter：选择或确认操作 / 查看答案\n- Esc 或 q：返回或取消 / 显示主页菜单\n- 1：将卡片评为“重来”（失败）\n- 2：将卡片评为“困难”\n- 3：将卡片评为“良好”\n- 4：将卡片评为“简单”\n- s 或 n：跳过卡片\n- p：返回上一张卡片\n- w：保存会话",
     "no_deck_found": "在 %s 中找不到卡组",
     "failed_to_load": "加载 %s 失败：%s",
     "deck_progress": "%s (%.0f%% / %d)",
-    "total_blackout": "完全忘记",
-    "perfect_recall": "完美记忆",
-    "incorrect_difficult": "困难-错误",
-    "correct_difficult": "困难-正确",
-    "incorrect_easy": "简单-错误",
-    "correct_easy": "简单-正确",
+    "score_again": "重来",
+    "score_hard": "困难",
+    "score_good": "良好",
+    "score_easy": "简单",
     "import_directory": "导入目录",
     "change_directory": "更改目录",
     "10_cards": "10 张卡片",
@@ -36,5 +34,6 @@
     "please_set_directory": "请设置包含您的抽认卡的目录。",
     "welcome": "欢迎",
     "language": "语言",
-    "about": "关于"
+    "about": "关于",
+    "algorithm": "算法"
 }

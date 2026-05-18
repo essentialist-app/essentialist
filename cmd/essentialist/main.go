@@ -24,6 +24,7 @@ func main() {
 	lang := application.Preferences().StringWithFallback("language", "en")
 	i18n.SetLanguage(lang)
 
+
 	application.Settings().SetTheme(getTheme())
 	window := application.NewWindow("Essentialist")
 	icon := fyne.NewStaticResource("io.github.essentialist_app.essentialist.png", iconBytes)

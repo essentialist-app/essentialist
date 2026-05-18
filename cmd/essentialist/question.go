@@ -143,14 +143,12 @@ func (s *AnswerScreen) answersButton(app Application) *fyne.Container {
 			})
 	}
 	buttons := []fyne.CanvasObject{
-		bt(i18n.MustLocalize("total_blackout"), internal.TotalBlackout),
-		bt(i18n.MustLocalize("perfect_recall"), internal.PerfectRecall),
-		bt(i18n.MustLocalize("incorrect_difficult"), internal.IncorrectDifficult),
-		bt(i18n.MustLocalize("correct_difficult"), internal.CorrectDifficult),
-		bt(i18n.MustLocalize("incorrect_easy"), internal.IncorrectEasy),
-		bt(i18n.MustLocalize("correct_easy"), internal.CorrectEasy),
+		bt(i18n.MustLocalize("score_again"), internal.ScoreAgain),
+		bt(i18n.MustLocalize("score_hard"), internal.ScoreHard),
+		bt(i18n.MustLocalize("score_good"), internal.ScoreGood),
+		bt(i18n.MustLocalize("score_easy"), internal.ScoreEasy),
 	}
-	return container.New(layout.NewGridLayout(2), buttons...)
+	return container.New(layout.NewGridLayout(4), buttons...)
 }
 
 func (s *AnswerScreen) reviewScore(app Application, score internal.Score) {
@@ -167,18 +165,14 @@ func (s *AnswerScreen) keyHandler(app Application) func(*fyne.KeyEvent) {
 	return func(key *fyne.KeyEvent) {
 		if key.Name != "" {
 			switch key.Name {
-			case fyne.Key0:
-				s.reviewScore(app, internal.TotalBlackout)
 			case fyne.Key1:
-				s.reviewScore(app, internal.IncorrectDifficult)
+				s.reviewScore(app, internal.ScoreAgain)
 			case fyne.Key2:
-				s.reviewScore(app, internal.IncorrectEasy)
+				s.reviewScore(app, internal.ScoreHard)
 			case fyne.Key3:
-				s.reviewScore(app, internal.CorrectDifficult)
+				s.reviewScore(app, internal.ScoreGood)
 			case fyne.Key4:
-				s.reviewScore(app, internal.CorrectEasy)
-			case fyne.Key5:
-				s.reviewScore(app, internal.PerfectRecall)
+				s.reviewScore(app, internal.ScoreEasy)
 			case fyne.KeyQ, fyne.KeyEscape:
 				s.game.Save()
 				app.Display(NewSplashScreen())

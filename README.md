@@ -6,7 +6,7 @@ Programs for [spaced repetition][1] using flashcards in [Markdown][2].
 - **Essentialist**: Application for desktops (Windows, MacOS and Linux) and mobile (Android)
 - **Flashdown**: Terminal user interface
 
-The space repetition algorithm used is based on [SM-2][3].
+The space repetition algorithm is [FSRS][3].
 
 Key features:
 
@@ -16,7 +16,7 @@ Key features:
 
 [1]: https://en.wikipedia.org/wiki/Spaced_repetition
 [2]: https://en.wikipedia.org/wiki/Markdown
-[3]: https://en.wikipedia.org/wiki/SuperMemo#Description_of_SM-2_algorithm
+[3]: https://github.com/open-spaced-repetition/fsrs4anki
 
 See the [CONTRIBUTING.md](/.github/CONTRIBUTING.md) for how to report bugs and
 submit pull request.
@@ -173,7 +173,7 @@ go install ./cmd/flashdown
 Usage:
 
 ```shell
-flashdown <deck_file> [<deck_file>]
+flashdown [-a] [-g <algorithm>] [-n <number of cards>] <deck_file> [<deck_file> ...]
 ```
 
 ![Screenshot](docs/flashdown-screenshot.png)

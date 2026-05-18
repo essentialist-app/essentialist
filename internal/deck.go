@@ -130,7 +130,7 @@ func ShuffleCards(cards []Card) []Card {
 func (d *Deck) SelectBefore(now time.Time) []Card {
 	cards := []Card{}
 	for _, card := range d.Cards {
-		if card.Meta.NextTime.Before(now) {
+		if card.Meta.GetNextTime().Before(now) {
 			cards = append(cards, card)
 		}
 	}
@@ -141,7 +141,7 @@ func (d *Deck) Stats() (toReview, total int) {
 	toReview = 0
 	now := time.Now()
 	for _, card := range d.Cards {
-		if card.Meta.NextTime.Before(now) {
+		if card.Meta.GetNextTime().Before(now) {
 			toReview++
 		}
 	}

@@ -1,16 +1,14 @@
 {
     "congratulations": "축하합니다!",
     "press_to_continue": "계속하려면 누르세요",
-    "help_content": "Essentialist는 정보를 효율적으로 학습하고 기억하는 데 도움이 되는 플래시카드 애플리케이션입니다.\n\n사용법:\n- 화살표 키를 사용하여 애플리케이션의 다른 섹션(홈, 도움말, 설정)을 탐색합니다.\n- 홈 섹션에서 플래시카드를 검토할 수 있습니다.\n- 설정 섹션에서 원하는 대로 애플리케이션을 구성할 수 있습니다.\n- Enter 키를 눌러 작업을 선택하거나 확인합니다.\n- Esc 키를 눌러 뒤로 가거나 작업을 취소합니다.",
+    "help_content": "Essentialist는 정보를 효율적으로 학습하고 기억하는 데 도움이 되는 플래시카드 애플리케이션입니다.\n\n사용법:\n- 화살표 키를 사용하여 애플리케이션의 다른 섹션(홈, 도움말, 설정)을 탐색합니다.\n- 홈 섹션에서 플래시카드를 검토할 수 있습니다.\n- 설정 섹션에서 원하는 대로 애플리케이션을 구성할 수 있습니다.\n\n단축키:\n- Enter: 작업 선택 또는 확인 / 답 보기\n- Esc 또는 q: 뒤로 가기 또는 취소 / 홈 메뉴 표시\n- 1: 카드를 \"다시\"(학습 실패)로 기록\n- 2: 카드를 \"어려움\"으로 기록\n- 3: 카드를 \"좋음\"으로 기록\n- 4: 카드를 \"쉬움\"으로 기록\n- s 또는 n: 카드 건너뛰기\n- p: 이전 카드로 이동\n- w: 세션 저장",
     "no_deck_found": "%s에서 덱을 찾을 수 없습니다",
     "failed_to_load": "%s 로드 실패: %s",
     "deck_progress": "%s (총 %d개 중 %.0f%%)",
-    "total_blackout": "완전 망각",
-    "perfect_recall": "완벽한 기억",
-    "incorrect_difficult": "오답 (어려움)",
-    "correct_difficult": "정답 (어려움)",
-    "incorrect_easy": "오답 (쉬움)",
-    "correct_easy": "정답 (쉬움)",
+    "score_again": "다시",
+    "score_hard": "어려움",
+    "score_good": "좋음",
+    "score_easy": "쉬움",
     "import_directory": "디렉토리 가져오기",
     "change_directory": "디렉토리 변경",
     "10_cards": "카드 10장",
@@ -36,5 +34,6 @@
     "please_set_directory": "플래시카드가 포함된 디렉토리를 설정해주세요.",
     "welcome": "환영합니다",
     "language": "언어",
-    "about": "정보"
+    "about": "정보",
+    "algorithm": "알고리즘"
 }
