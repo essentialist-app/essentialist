@@ -175,6 +175,36 @@ func (s *SettingsScreen) languageSelector(app Application) *widget.Select {
 	return selector
 }
 
+func (s *SettingsScreen) selectAlgorithm(app Application) *widget.Select {
+	selections := []string{
+		i18n.MustLocalize("algorithm") + ": SM-2",
+		i18n.MustLocalize("algorithm") + ": FSRS",
+	}
+	values := []internal.Algorithm{internal.AlgoSM2, internal.AlgoFSRS}
+
+	onChange := func(selected string) {
+		for i, sel := range selections {
+			if sel == selected {
+				app.Preferences().SetString("algorithm", string(values[i]))
+				internal.CurrentAlgorithm = values[i]
+				return
+			}
+		}
+	}
+
+	selector := widget.NewSelect(selections, onChange)
+	selector.Alignment = fyne.TextAlignCenter
+	currentAlgo := app.Preferences().StringWithFallback("algorithm", string(internal.AlgoFSRS))
+	selector.Selected = selections[0]
+	for i, val := range values {
+		if string(val) == currentAlgo {
+			selector.Selected = selections[i]
+			break
+		}
+	}
+	return selector
+}
+
 func (s *SettingsScreen) Show(app Application) {
 	topBar := s.newSettingsTopBar(app)
 
@@ -187,6 +217,7 @@ func (s *SettingsScreen) Show(app Application) {
 	}
 	objects = append(objects, s.changeThemeSelector(app))
 	objects = append(objects, s.selectRepetition(app))
+	objects = append(objects, s.selectAlgorithm(app))
 	objects = append(objects, s.languageSelector(app))
 	aboutButton := widget.NewButton(i18n.MustLocalize("about"), func() {
 		app.Display(NewAboutScreen())

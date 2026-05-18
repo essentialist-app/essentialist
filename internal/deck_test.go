@@ -9,6 +9,10 @@ import (
 )
 
 func TestOpenDeck(t *testing.T) {
+	origAlgo := CurrentAlgorithm
+	defer func() { CurrentAlgorithm = origAlgo }()
+	CurrentAlgorithm = AlgoSM2
+
 	d, err := NewDeckFromFile("samples/testdata/test-1.md")
 	if err != nil {
 		t.Fatal(err)

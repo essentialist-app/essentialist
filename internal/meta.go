@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"strings"
 	"time"
+
+	"github.com/open-spaced-repetition/go-fsrs"
 )
 
 // Digest represents the question digest.
@@ -21,12 +23,42 @@ const (
 	SecondRepetitionDelay = 36 // was 6
 )
 
+type Algorithm string
+
+const (
+	AlgoSM2  Algorithm = "sm-2"
+	AlgoFSRS Algorithm = "fsrs"
+)
+
+var CurrentAlgorithm Algorithm = AlgoFSRS
+
 // Meta contains information about the succces of a card.
 type Meta struct {
 	Hash       Digest
 	NextTime   time.Time // next time to ask
 	Repetition int32     // # of success in a row
 	Easiness   float32   // how easy is it
+
+	// FSRS fields
+	FSRSNextTime      time.Time `json:"FSRSNextTime,omitempty"`
+	FSRSStability     float64   `json:"FSRSStability,omitempty"`
+	FSRSDifficulty    float64   `json:"FSRSDifficulty,omitempty"`
+	FSRSReps          int32     `json:"FSRSReps,omitempty"`
+	FSRSLapses        int32     `json:"FSRSLapses,omitempty"`
+	FSRSState         int8      `json:"FSRSState,omitempty"`
+	FSRSLastReview    time.Time `json:"FSRSLastReview,omitempty"`
+	FSRSScheduledDays int32     `json:"FSRSScheduledDays,omitempty"`
+	FSRSElapsedDays   int32     `json:"FSRSElapsedDays,omitempty"`
+}
+
+func (c *Meta) GetNextTime() time.Time {
+	if CurrentAlgorithm == AlgoFSRS {
+		if c.FSRSNextTime.IsZero() {
+			return c.NextTime
+		}
+		return c.FSRSNextTime
+	}
+	return c.NextTime
 }
 
 // NewMeta initialize a new card
@@ -44,6 +76,10 @@ func NewMeta(card Card) *Meta {
 // FirstRepetitionDelay and SecondRepetitionDelay have been
 // modified, originally they were 1 and 6.
 func (c *Meta) Review(s Score) {
+	if CurrentAlgorithm == AlgoFSRS {
+		c.ReviewFSRS(s)
+		return
+	}
 	if s >= 3 {
 		switch c.Repetition {
 		case 0:
@@ -67,6 +103,60 @@ func (c *Meta) Review(s Score) {
 		c.Repetition = 0
 		c.NextTime = time.Now()
 	}
+}
+
+func (c *Meta) ReviewFSRS(s Score) {
+	var rating fsrs.Rating
+	switch s {
+	case 0, 1, 2:
+		rating = fsrs.Again
+	case 3:
+		rating = fsrs.Hard
+	case 4:
+		rating = fsrs.Good
+	case 5:
+		rating = fsrs.Easy
+	default:
+		rating = fsrs.Good
+	}
+
+	card := fsrs.Card{
+		Due:           c.FSRSNextTime,
+		Stability:     c.FSRSStability,
+		Difficulty:    c.FSRSDifficulty,
+		ElapsedDays:   uint64(c.FSRSElapsedDays),
+		ScheduledDays: uint64(c.FSRSScheduledDays),
+		Reps:          uint64(c.FSRSReps),
+		Lapses:        uint64(c.FSRSLapses),
+		State:         fsrs.State(c.FSRSState),
+		LastReview:    c.FSRSLastReview,
+	}
+
+	now := time.Now()
+	if c.FSRSLastReview.IsZero() {
+		card.Due = now
+		card.State = fsrs.New
+	} else {
+		elapsed := now.Sub(c.FSRSLastReview).Hours() / 24.0
+		if elapsed < 0 {
+			elapsed = 0
+		}
+		card.ElapsedDays = uint64(elapsed)
+	}
+
+	params := fsrs.DefaultParam()
+	schedulingChoices := params.Repeat(card, now)
+	choice := schedulingChoices[rating]
+
+	c.FSRSNextTime = choice.Card.Due
+	c.FSRSStability = choice.Card.Stability
+	c.FSRSDifficulty = choice.Card.Difficulty
+	c.FSRSReps = int32(choice.Card.Reps)
+	c.FSRSLapses = int32(choice.Card.Lapses)
+	c.FSRSState = int8(choice.Card.State)
+	c.FSRSLastReview = choice.Card.LastReview
+	c.FSRSScheduledDays = int32(choice.Card.ScheduledDays)
+	c.FSRSElapsedDays = int32(choice.Card.ElapsedDays)
 }
 
 func strip(s string) string {

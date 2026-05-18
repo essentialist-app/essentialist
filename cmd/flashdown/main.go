@@ -18,9 +18,10 @@ const (
 
 	usageMsg = `Spaced repetition program for flashcards in Markdown.
 
-Usage: %s [-a] [-n <number of cards>] <file or directory> [<file> ...]
+Usage: %s [-a] [-g <algorithm>] [-n <number of cards>] <file or directory> [<file> ...]
 Flags:
 	-a | --all    : force all cards in the deck to be used.
+	-g | --algo   : spacing algorithm to use: sm-2 or fsrs (default: sm-2).
 	-h | --help   : show this message.
 	-n | --number : set the number of cards used.
 	-d | --debug  : debug logs are written to a temprorary file.
@@ -90,6 +91,20 @@ func main() {
 			if cardsNb <= 0 || err != nil {
 				fmt.Print("Argument -n must be followed by a positive number.\n")
 				os.Exit(1)
+			}
+			continue
+		case "-g", "--algo", "-algo":
+			if i < len(os.Args) {
+				i++
+				algo := strings.ToLower(os.Args[i])
+				if algo == "sm-2" || algo == "sm2" {
+					internal.CurrentAlgorithm = internal.AlgoSM2
+				} else if algo == "fsrs" {
+					internal.CurrentAlgorithm = internal.AlgoFSRS
+				} else {
+					fmt.Printf("Unknown algorithm: %s. Supported: sm-2, fsrs\n", os.Args[i])
+					os.Exit(1)
+				}
 			}
 			continue
 		}

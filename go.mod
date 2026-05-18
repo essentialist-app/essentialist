@@ -11,6 +11,7 @@ require (
 	github.com/fatih/color v1.18.0
 	github.com/gizak/termui/v3 v3.1.0
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
+	github.com/open-spaced-repetition/go-fsrs v1.2.1
 	github.com/stretchr/testify v1.11.1
 	github.com/yuin/goldmark v1.7.13
 	github.com/yuin/goldmark-emoji v1.0.6
