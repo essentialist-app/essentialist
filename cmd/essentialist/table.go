@@ -1,13 +1,17 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"image"
+	_ "image/png"
 	"io"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
 
@@ -198,6 +202,17 @@ func renderNode(source []byte, n ast.Node, path string, blockquote bool) ([]widg
 	case *emoast.Emoji:
 		text := string(t.Value.Unicode)
 		return []widget.RichTextSegment{&widget.TextSegment{Style: widget.RichTextStyleInline, Text: text}}, nil
+	case *MathNode:
+		dark := isDarkTheme()
+		res, err := renderMath(string(t.LaTeX), t.Display, dark)
+		if err != nil {
+			fallbackText := "$" + string(t.LaTeX) + "$"
+			if t.Display {
+				fallbackText = "$$" + string(t.LaTeX) + "$$"
+			}
+			return []widget.RichTextSegment{&widget.TextSegment{Style: widget.RichTextStyleParagraph, Text: fallbackText}}, nil
+		}
+		return []widget.RichTextSegment{&MathSegment{LaTeX: string(t.LaTeX), Display: t.Display, Resource: res}}, nil
 	}
 	return nil, nil
 }
@@ -260,6 +275,7 @@ func parseMarkdown(content string, path string) []widget.RichTextSegment {
 		goldmark.WithExtensions(
 			extension.Table,
 			emoji.Emoji,
+			&mathExtension{},
 		),
 		goldmark.WithRenderer(&r))
 	err := md.Convert([]byte(content), nil)
@@ -491,4 +507,106 @@ func (l *ListSegment) SelectedText() string {
 
 // Unselect does nothing for a list container.
 func (l *ListSegment) Unselect() {
+}
+
+type MathSegment struct {
+	LaTeX    string
+	Display  bool
+	Resource fyne.Resource
+}
+
+func (m *MathSegment) Inline() bool {
+	return !m.Display
+}
+
+func (m *MathSegment) Textual() string {
+	if m.Display {
+		return "$$" + m.LaTeX + "$$"
+	}
+	return "$" + m.LaTeX + "$"
+}
+
+func (m *MathSegment) Visual() fyne.CanvasObject {
+	return newMathWidget(m.Resource)
+}
+
+func (m *MathSegment) Update(obj fyne.CanvasObject) {
+	if w, ok := obj.(*mathWidget); ok {
+		w.SetResource(m.Resource)
+	}
+}
+
+func (m *MathSegment) Select(pos1, pos2 fyne.Position) {}
+
+func (m *MathSegment) SelectedText() string {
+	if m.Display {
+		return "$$" + m.LaTeX + "$$"
+	}
+	return "$" + m.LaTeX + "$"
+}
+
+func (m *MathSegment) Unselect() {}
+
+type mathWidget struct {
+	widget.BaseWidget
+	img  *canvas.Image
+	size fyne.Size
+}
+
+func newMathWidget(res fyne.Resource) *mathWidget {
+	w := &mathWidget{}
+	w.ExtendBaseWidget(w)
+	w.img = canvas.NewImageFromResource(res)
+	w.img.FillMode = canvas.ImageFillContain
+
+	// Decode size
+	cfg, _, err := image.DecodeConfig(bytes.NewReader(res.Content()))
+	if err == nil {
+		scale := float32(mathDPI / 72.0)
+		w.size = fyne.NewSize(float32(cfg.Width)/scale, float32(cfg.Height)/scale)
+	} else {
+		w.size = fyne.NewSize(100, 20)
+	}
+	return w
+}
+
+func (w *mathWidget) CreateRenderer() fyne.WidgetRenderer {
+	return &mathWidgetRenderer{img: w.img}
+}
+
+func (w *mathWidget) MinSize() fyne.Size {
+	return w.size
+}
+
+func (w *mathWidget) SetResource(res fyne.Resource) {
+	w.img.Resource = res
+	cfg, _, err := image.DecodeConfig(bytes.NewReader(res.Content()))
+	if err == nil {
+		scale := float32(mathDPI / 72.0)
+		w.size = fyne.NewSize(float32(cfg.Width)/scale, float32(cfg.Height)/scale)
+	}
+	w.img.Refresh()
+	w.Refresh()
+}
+
+type mathWidgetRenderer struct {
+	img *canvas.Image
+}
+
+func (r *mathWidgetRenderer) Destroy() {}
+
+func (r *mathWidgetRenderer) Layout(s fyne.Size) {
+	r.img.Resize(s)
+}
+
+func (r *mathWidgetRenderer) MinSize() fyne.Size {
+	return r.img.MinSize()
+}
+
+func (r *mathWidgetRenderer) Objects() []fyne.CanvasObject {
+	return []fyne.CanvasObject{r.img}
+}
+
+func (r *mathWidgetRenderer) Refresh() {
+	r.img.Refresh()
 }
