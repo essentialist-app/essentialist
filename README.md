@@ -59,12 +59,14 @@ Answer with a table.
 
 Essentialist has basic support for math rendering using standard LaTeX syntax. You can write inline math wrapped in single dollars `$...$` (e.g. `$\pi = \frac{c}{d}$`) or block math wrapped in double dollars `$$...$$` on its own line:
 
+```
 $$
 \sum_{i=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
 $$
+```
 
 > [!WARNING]
-> Math typesetting support is currently primitive. The app mostly supports fractions (`\frac`), exponents (`x^2`), summation and limit operators (`\sum`, `\lim`), and indexes (`x_i`). Many complex KaTeX/LaTeX functions and environments do not work yet (enhancing this is not a main priority of the project, but bug reports and contributions are welcome).
+> Math typesetting support is currently primitive. Many complex KaTeX/LaTeX functions and environments do not work yet. Bug reports and contributions are welcome.
 
 ## Essentialist (GUI)
 
