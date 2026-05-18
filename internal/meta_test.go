@@ -74,80 +74,24 @@ func TestHash(t *testing.T) {
 }
 
 func TestMetaReview(t *testing.T) {
-	origAlgo := CurrentAlgorithm
-	defer func() { CurrentAlgorithm = origAlgo }()
-	CurrentAlgorithm = AlgoSM2
-
 	var card Card
 	meta := NewMeta(card)
-	if meta.Repetition != 0 {
-		t.Errorf("Invalid repetition: %d", meta.Repetition)
+
+	if meta.FSRSReps != 0 {
+		t.Errorf("Invalid FSRSReps: %d", meta.FSRSReps)
 	}
-	if time.Now().Before(meta.NextTime) {
-		t.Errorf("Invalid next time: %v", meta.NextTime)
+
+	meta.Review(ScoreAgain) // Again (1)
+	if meta.FSRSReps != 1 {
+		t.Errorf("Expected FSRSReps to be 1 after review, got %d", meta.FSRSReps)
 	}
-	errors := []Score{
-		0, 1, 2,
+	if meta.FSRSNextTime.IsZero() {
+		t.Errorf("Expected FSRSNextTime to be set")
 	}
-	for _, score := range errors {
-		meta.Review(score)
-		if meta.Repetition != 0 {
-			t.Errorf("%d: Invalid repetition: %d", score, meta.Repetition)
-		}
-		if time.Now().Before(meta.NextTime) {
-			t.Errorf("%d: Invalid next time: %v", score, meta.NextTime)
-		}
-	}
-	easiness := meta.Easiness
-	meta.Review(3)
-	if meta.Repetition != 1 {
-		t.Errorf("Invalid repetition: %d", meta.Repetition)
-	}
-	if time.Now().AddDate(0, 0, FirstRepetitionDelay).Before(meta.NextTime) {
-		t.Errorf("Invalid next time: %v", meta.NextTime)
-	}
-	if meta.Easiness > easiness {
-		t.Errorf("Easiness should not raise: %f", meta.Easiness)
-	}
-	easiness = meta.Easiness
-	meta.Review(4)
-	if meta.Repetition != 2 {
-		t.Errorf("Invalid repetition: %d", meta.Repetition)
-	}
-	if time.Now().AddDate(0, 0, SecondRepetitionDelay).Before(meta.NextTime) {
-		t.Errorf("Invalid next time: %v", meta.NextTime)
-	}
-	if meta.Easiness != easiness {
-		t.Errorf("Easiness not the same: %f", meta.Easiness)
-	}
-	easiness = meta.Easiness
-	meta.Review(5)
-	if meta.Repetition != 3 {
-		t.Errorf("Invalid repetition: %d", meta.Repetition)
-	}
-	days := SecondRepetitionDelay*2*float64(easiness) - 1
-	if time.Now().AddDate(0, 0, int(days)).After(meta.NextTime) {
-		t.Errorf("Invalid next time: %v", meta.NextTime)
-	}
-	days = SecondRepetitionDelay*2*float64(easiness) + 1
-	if time.Now().AddDate(0, 0, int(days)).Before(meta.NextTime) {
-		t.Errorf("Invalid next time: %v", meta.NextTime)
-	}
-	if meta.Easiness <= easiness {
-		t.Errorf("Easiness should raise: %f", meta.Easiness)
-	}
-	meta.Review(2)
-	if meta.Repetition != 0 {
-		t.Errorf("Invalid repetition: %d", meta.Repetition)
-	}
-	if time.Now().Before(meta.NextTime) {
-		t.Errorf("Invalid next time: %v", meta.NextTime)
-	}
-	for i := 0; i < 100; i++ {
-		meta.Review(3)
-	}
-	if meta.Easiness < 1.3 {
-		t.Errorf("Easiness should plateau: %f", meta.Easiness)
+
+	meta.Review(ScoreGood) // Good (3)
+	if meta.FSRSReps != 2 {
+		t.Errorf("Expected FSRSReps to be 2 after review, got %d", meta.FSRSReps)
 	}
 }
 
@@ -173,12 +117,6 @@ func TestWriteRead(t *testing.T) {
 }
 
 func TestFSRSMetaReview(t *testing.T) {
-	// Backup original algorithm
-	origAlgo := CurrentAlgorithm
-	defer func() { CurrentAlgorithm = origAlgo }()
-
-	CurrentAlgorithm = AlgoFSRS
-
 	var card Card
 	meta := NewMeta(card)
 
@@ -190,13 +128,8 @@ func TestFSRSMetaReview(t *testing.T) {
 		t.Errorf("FSRSReps should be 0: %d", meta.FSRSReps)
 	}
 
-	// Save SM-2 fields to check they remain unchanged
-	origRepetition := meta.Repetition
-	origEasiness := meta.Easiness
-	origNextTime := meta.NextTime
-
 	// Perform a review under FSRS
-	meta.Review(4) // Good rating
+	meta.Review(ScoreEasy) // Easy rating (4)
 
 	if meta.FSRSReps != 1 {
 		t.Errorf("FSRSReps should be 1: %d", meta.FSRSReps)
@@ -210,44 +143,23 @@ func TestFSRSMetaReview(t *testing.T) {
 	if meta.FSRSStability == 0 {
 		t.Errorf("FSRSStability should not be zero")
 	}
-
-	// Verify SM-2 fields remained completely unchanged
-	if meta.Repetition != origRepetition {
-		t.Errorf("SM-2 Repetition changed: %d -> %d", origRepetition, meta.Repetition)
-	}
-	if meta.Easiness != origEasiness {
-		t.Errorf("SM-2 Easiness changed: %f -> %f", origEasiness, meta.Easiness)
-	}
-	if !meta.NextTime.Equal(origNextTime) {
-		t.Errorf("SM-2 NextTime changed: %v -> %v", origNextTime, meta.NextTime)
-	}
 }
 
 func TestGetNextTime(t *testing.T) {
-	origAlgo := CurrentAlgorithm
-	defer func() { CurrentAlgorithm = origAlgo }()
-
 	var card Card
 	meta := NewMeta(card)
 	meta.NextTime = time.Now().Add(24 * time.Hour)
 	meta.FSRSNextTime = time.Now().Add(48 * time.Hour)
 
-	// Check SM-2
-	CurrentAlgorithm = AlgoSM2
-	if !meta.GetNextTime().Equal(meta.NextTime) {
-		t.Errorf("Expected SM-2 next time %v, got %v", meta.NextTime, meta.GetNextTime())
-	}
-
-	// Check FSRS
-	CurrentAlgorithm = AlgoFSRS
+	// Check FSRS next time is returned
 	if !meta.GetNextTime().Equal(meta.FSRSNextTime) {
 		t.Errorf("Expected FSRS next time %v, got %v", meta.FSRSNextTime, meta.GetNextTime())
 	}
 
-	// Check FSRS Zero value behavior
+	// Check FSRS Zero value behavior falls back to legacy NextTime
 	meta.FSRSNextTime = time.Time{}
-	if meta.GetNextTime().IsZero() {
-		t.Errorf("Expected non-zero time when FSRSNextTime is zero")
+	if !meta.GetNextTime().Equal(meta.NextTime) {
+		t.Errorf("Expected GetNextTime to fall back to NextTime %v, got %v", meta.NextTime, meta.GetNextTime())
 	}
 }
 

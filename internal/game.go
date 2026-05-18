@@ -94,27 +94,23 @@ func (g *Game) DeckName() string {
 	return g.cards[g.index].DeckName
 }
 
-// Score represents how easly one responded to a question.
+// Score represents how easily one responded to a question.
 type Score int
 
 const (
-	// 0: Total blackout, complete failure to recall the information.
-	TotalBlackout Score = 0
-	// 1: Incorrect response, but upon seeing the correct answer it felt familiar.
-	IncorrectDifficult Score = iota
-	// 2: Incorrect response, but upon seeing the correct answer it seemed easy to remember.
-	IncorrectEasy Score = iota
-	// 3: Correct response, but required significant difficulty to recall.
-	CorrectDifficult Score = iota
-	// 4: Correct response, after some hesitation.
-	CorrectEasy Score = iota
-	// 5: Correct response with perfect recall.
-	PerfectRecall Score = iota
+	// 1: Again (fail)
+	ScoreAgain Score = 1
+	// 2: Hard
+	ScoreHard Score = 2
+	// 3: Good
+	ScoreGood Score = 3
+	// 4: Easy
+	ScoreEasy Score = 4
 )
 
 func (g *Game) Review(s Score) {
 	if g.index < len(g.cards) {
-		if s >= 3 {
+		if s >= ScoreHard {
 			g.success++
 		}
 		g.cards[g.index].Meta.Review(s)

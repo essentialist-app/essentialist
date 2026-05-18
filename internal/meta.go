@@ -23,21 +23,12 @@ const (
 	SecondRepetitionDelay = 36 // was 6
 )
 
-type Algorithm string
-
-const (
-	AlgoSM2  Algorithm = "sm-2"
-	AlgoFSRS Algorithm = "fsrs"
-)
-
-var CurrentAlgorithm Algorithm = AlgoFSRS
-
-// Meta contains information about the succces of a card.
+// Meta contains information about the success of a card.
 type Meta struct {
 	Hash       Digest
-	NextTime   time.Time // next time to ask
-	Repetition int32     // # of success in a row
-	Easiness   float32   // how easy is it
+	NextTime   time.Time // Deprecated: legacy SM-2 field, kept for database backward compatibility
+	Repetition int32     // Deprecated: legacy SM-2 field, kept for database backward compatibility
+	Easiness   float32   // Deprecated: legacy SM-2 field, kept for database backward compatibility
 
 	// FSRS fields
 	FSRSNextTime      time.Time `json:"FSRSNextTime,omitempty"`
@@ -52,13 +43,10 @@ type Meta struct {
 }
 
 func (c *Meta) GetNextTime() time.Time {
-	if CurrentAlgorithm == AlgoFSRS {
-		if c.FSRSNextTime.IsZero() {
-			return c.NextTime
-		}
-		return c.FSRSNextTime
+	if c.FSRSNextTime.IsZero() {
+		return c.NextTime
 	}
-	return c.NextTime
+	return c.FSRSNextTime
 }
 
 // NewMeta initialize a new card
@@ -72,49 +60,16 @@ func NewMeta(card Card) *Meta {
 }
 
 // Review updates the card meta data according to the score.
-// See https://en.wikipedia.org/wiki/SuperMemo
-// FirstRepetitionDelay and SecondRepetitionDelay have been
-// modified, originally they were 1 and 6.
 func (c *Meta) Review(s Score) {
-	if CurrentAlgorithm == AlgoFSRS {
-		c.ReviewFSRS(s)
-		return
-	}
-	if s >= 3 {
-		switch c.Repetition {
-		case 0:
-			c.NextTime = time.Now().AddDate(0, 0, FirstRepetitionDelay)
-		case 1:
-			c.NextTime = time.Now().AddDate(0, 0, SecondRepetitionDelay)
-		default:
-			// 6 days per successful repetition
-			sinceLastTime := float64(c.Repetition) * SecondRepetitionDelay
-			days := int(sinceLastTime * float64(c.Easiness))
-			c.NextTime = time.Now().AddDate(0, 0, days)
-		}
-
-		Q := 5.0 - float32(s)
-		c.Easiness = c.Easiness + 0.1 - Q*0.08 - Q*Q*0.02
-		if c.Easiness < minimumEasiness {
-			c.Easiness = minimumEasiness
-		}
-		c.Repetition++
-	} else {
-		c.Repetition = 0
-		c.NextTime = time.Now()
-	}
-}
-
-func (c *Meta) ReviewFSRS(s Score) {
 	var rating fsrs.Rating
 	switch s {
-	case 0, 1, 2:
+	case ScoreAgain:
 		rating = fsrs.Again
-	case 3:
+	case ScoreHard:
 		rating = fsrs.Hard
-	case 4:
+	case ScoreGood:
 		rating = fsrs.Good
-	case 5:
+	case ScoreEasy:
 		rating = fsrs.Easy
 	default:
 		rating = fsrs.Good

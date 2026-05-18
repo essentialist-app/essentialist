@@ -7,7 +7,6 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"github.com/essentialist-app/essentialist/cmd/essentialist/i18n"
-	"github.com/essentialist-app/essentialist/internal"
 )
 
 //go:embed licenses.md
@@ -25,8 +24,6 @@ func main() {
 	lang := application.Preferences().StringWithFallback("language", "en")
 	i18n.SetLanguage(lang)
 
-	algo := application.Preferences().StringWithFallback("algorithm", string(internal.AlgoFSRS))
-	internal.CurrentAlgorithm = internal.Algorithm(algo)
 
 	application.Settings().SetTheme(getTheme())
 	window := application.NewWindow("Essentialist")
