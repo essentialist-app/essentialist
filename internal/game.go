@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -156,8 +157,12 @@ func (g *Game) IsFinished() bool {
 	return g.finished
 }
 
-func (g *Game) Save() {
+func (g *Game) Save() error {
+	var errs []error
 	for _, d := range g.decks {
-		defer d.SaveDeckMeta()
+		if err := d.SaveDeckMeta(); err != nil {
+			errs = append(errs, err)
+		}
 	}
+	return errors.Join(errs...)
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/essentialist-app/essentialist/cmd/essentialist/i18n"
 )
 
-//go:embed licenses.md
+//go:embed flatpak/io.github.essentialist_app.essentialist.png
 var iconBytes []byte
 
 func parseArgs() {
@@ -23,7 +23,6 @@ func main() {
 	application := app.NewWithID("io.github.essentialist_app.essentialist")
 	lang := application.Preferences().StringWithFallback("language", "en")
 	i18n.SetLanguage(lang)
-
 
 	application.Settings().SetTheme(getTheme())
 	window := application.NewWindow("Essentialist")

@@ -1,4 +1,23 @@
-# fyne.io/fyne/v2 v2.6.3
+# codeberg.org/go-fonts/liberation v0.6.0
+## explicit; go 1.25.0
+codeberg.org/go-fonts/liberation/liberationserifbold
+codeberg.org/go-fonts/liberation/liberationserifbolditalic
+codeberg.org/go-fonts/liberation/liberationserifitalic
+codeberg.org/go-fonts/liberation/liberationserifregular
+# codeberg.org/go-latex/latex v0.3.0 => ./third_party/codeberg.org/go-latex/latex
+## explicit; go 1.24
+codeberg.org/go-latex/latex
+codeberg.org/go-latex/latex/ast
+codeberg.org/go-latex/latex/drawtex
+codeberg.org/go-latex/latex/font
+codeberg.org/go-latex/latex/font/liberation
+codeberg.org/go-latex/latex/font/ttf
+codeberg.org/go-latex/latex/internal/tex2unicode
+codeberg.org/go-latex/latex/mtex
+codeberg.org/go-latex/latex/mtex/symbols
+codeberg.org/go-latex/latex/tex
+codeberg.org/go-latex/latex/token
+# fyne.io/fyne/v2 v2.7.4
 ## explicit; go 1.19
 fyne.io/fyne/v2
 fyne.io/fyne/v2/app
@@ -8,7 +27,9 @@ fyne.io/fyne/v2/data/binding
 fyne.io/fyne/v2/dialog
 fyne.io/fyne/v2/driver
 fyne.io/fyne/v2/driver/desktop
+fyne.io/fyne/v2/driver/embedded
 fyne.io/fyne/v2/driver/mobile
+fyne.io/fyne/v2/driver/software
 fyne.io/fyne/v2/internal
 fyne.io/fyne/v2/internal/animation
 fyne.io/fyne/v2/internal/app
@@ -18,6 +39,7 @@ fyne.io/fyne/v2/internal/cache
 fyne.io/fyne/v2/internal/color
 fyne.io/fyne/v2/internal/driver
 fyne.io/fyne/v2/internal/driver/common
+fyne.io/fyne/v2/internal/driver/embedded
 fyne.io/fyne/v2/internal/driver/glfw
 fyne.io/fyne/v2/internal/driver/mobile
 fyne.io/fyne/v2/internal/driver/mobile/app
@@ -47,12 +69,15 @@ fyne.io/fyne/v2/storage/repository
 fyne.io/fyne/v2/test
 fyne.io/fyne/v2/theme
 fyne.io/fyne/v2/widget
-# fyne.io/systray v1.11.0
+# fyne.io/systray v1.12.1
 ## explicit; go 1.19
 fyne.io/systray
 fyne.io/systray/internal/generated/menu
 fyne.io/systray/internal/generated/notifier
-# github.com/BurntSushi/toml v1.5.0
+# git.sr.ht/~sbinet/gg v0.8.0
+## explicit; go 1.25.0
+git.sr.ht/~sbinet/gg
+# github.com/BurntSushi/toml v1.6.0
 ## explicit; go 1.18
 github.com/BurntSushi/toml
 github.com/BurntSushi/toml/internal
@@ -101,31 +126,30 @@ github.com/alecthomas/chroma/lexers/x
 github.com/alecthomas/chroma/lexers/y
 github.com/alecthomas/chroma/lexers/z
 github.com/alecthomas/chroma/styles
-# github.com/clipperhouse/uax29/v2 v2.2.0
+# github.com/clipperhouse/uax29/v2 v2.7.0
 ## explicit; go 1.18
 github.com/clipperhouse/uax29/v2/graphemes
-github.com/clipperhouse/uax29/v2/internal/iterators
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew
 # github.com/disintegration/imaging v1.6.2
 ## explicit
 github.com/disintegration/imaging
-# github.com/dlclark/regexp2 v1.11.5
+# github.com/dlclark/regexp2 v1.12.0
 ## explicit; go 1.13
 github.com/dlclark/regexp2
 github.com/dlclark/regexp2/syntax
 # github.com/eliukblau/pixterm/pkg/ansimage v0.0.0-20191210081756-9fb6cf8c2f75
 ## explicit; go 1.13
 github.com/eliukblau/pixterm/pkg/ansimage
-# github.com/fatih/color v1.18.0
-## explicit; go 1.17
+# github.com/fatih/color v1.19.0
+## explicit; go 1.25.0
 github.com/fatih/color
 # github.com/fredbi/uri v1.1.1
 ## explicit; go 1.19
 github.com/fredbi/uri
-# github.com/fsnotify/fsnotify v1.9.0
-## explicit; go 1.17
+# github.com/fsnotify/fsnotify v1.10.1
+## explicit; go 1.23
 github.com/fsnotify/fsnotify
 github.com/fsnotify/fsnotify/internal
 # github.com/fyne-io/gl-js v0.2.0
@@ -145,13 +169,13 @@ github.com/fyne-io/oksvg
 github.com/gizak/termui/v3
 github.com/gizak/termui/v3/drawille
 github.com/gizak/termui/v3/widgets
-# github.com/go-gl/gl v0.0.0-20231021071112-07e5d0ea2e71
+# github.com/go-gl/gl v0.0.0-20260331235117-4566fea9a276
 ## explicit; go 1.12
 github.com/go-gl/gl/v2.1/gl
 github.com/go-gl/gl/v2.1/gl/KHR
 github.com/go-gl/gl/v3.1/gles2
 github.com/go-gl/gl/v3.1/gles2/KHR
-# github.com/go-gl/glfw/v3.3/glfw v0.0.0-20250301202403-da16c1255728
+# github.com/go-gl/glfw/v3.3/glfw v0.0.0-20260406072232-3ac4aa2bb164
 ## explicit; go 1.19
 github.com/go-gl/glfw/v3.3/glfw
 github.com/go-gl/glfw/v3.3/glfw/glfw/deps
@@ -160,10 +184,10 @@ github.com/go-gl/glfw/v3.3/glfw/glfw/deps/mingw
 github.com/go-gl/glfw/v3.3/glfw/glfw/deps/vs2008
 github.com/go-gl/glfw/v3.3/glfw/glfw/include/GLFW
 github.com/go-gl/glfw/v3.3/glfw/glfw/src
-# github.com/go-text/render v0.2.0
-## explicit; go 1.17
+# github.com/go-text/render v0.2.1
+## explicit; go 1.19
 github.com/go-text/render
-# github.com/go-text/typesetting v0.3.0
+# github.com/go-text/typesetting v0.3.4
 ## explicit; go 1.19
 github.com/go-text/typesetting/di
 github.com/go-text/typesetting/font
@@ -173,16 +197,19 @@ github.com/go-text/typesetting/font/opentype
 github.com/go-text/typesetting/font/opentype/tables
 github.com/go-text/typesetting/fontscan
 github.com/go-text/typesetting/harfbuzz
+github.com/go-text/typesetting/internal/unicodedata
 github.com/go-text/typesetting/language
 github.com/go-text/typesetting/segmenter
 github.com/go-text/typesetting/shaping
-github.com/go-text/typesetting/unicodedata
-# github.com/godbus/dbus/v5 v5.1.0
-## explicit; go 1.12
+# github.com/godbus/dbus/v5 v5.2.2
+## explicit; go 1.20
 github.com/godbus/dbus/v5
 github.com/godbus/dbus/v5/introspect
 github.com/godbus/dbus/v5/prop
-# github.com/gomarkdown/markdown v0.0.0-20250810172220-2e2c11897d1a
+# github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+## explicit
+github.com/golang/freetype/raster
+# github.com/gomarkdown/markdown v0.0.0-20260417124207-7d523f7318df
 ## explicit; go 1.12
 github.com/gomarkdown/markdown
 github.com/gomarkdown/markdown/ast
@@ -208,16 +235,16 @@ github.com/jsummers/gobmp
 # github.com/kyokomi/emoji/v2 v2.2.13
 ## explicit; go 1.14
 github.com/kyokomi/emoji/v2
-# github.com/lucasb-eyer/go-colorful v1.3.0
+# github.com/lucasb-eyer/go-colorful v1.4.0
 ## explicit; go 1.12
 github.com/lucasb-eyer/go-colorful
 # github.com/mattn/go-colorable v0.1.14
 ## explicit; go 1.18
 github.com/mattn/go-colorable
-# github.com/mattn/go-isatty v0.0.20
-## explicit; go 1.15
+# github.com/mattn/go-isatty v0.0.22
+## explicit; go 1.21
 github.com/mattn/go-isatty
-# github.com/mattn/go-runewidth v0.0.19
+# github.com/mattn/go-runewidth v0.0.23
 ## explicit; go 1.20
 github.com/mattn/go-runewidth
 # github.com/mitchellh/go-wordwrap v1.0.1
@@ -226,8 +253,8 @@ github.com/mitchellh/go-wordwrap
 # github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 ## explicit
 github.com/nfnt/resize
-# github.com/nicksnyder/go-i18n/v2 v2.6.0
-## explicit; go 1.23.0
+# github.com/nicksnyder/go-i18n/v2 v2.6.1
+## explicit; go 1.24.0
 github.com/nicksnyder/go-i18n/v2/i18n
 github.com/nicksnyder/go-i18n/v2/i18n/template
 github.com/nicksnyder/go-i18n/v2/internal
@@ -235,6 +262,9 @@ github.com/nicksnyder/go-i18n/v2/internal/plural
 # github.com/nsf/termbox-go v1.1.1
 ## explicit; go 1.15
 github.com/nsf/termbox-go
+# github.com/open-spaced-repetition/go-fsrs v1.2.1
+## explicit; go 1.18
+github.com/open-spaced-repetition/go-fsrs
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib
@@ -260,7 +290,7 @@ github.com/srwiley/rasterx
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/assert/yaml
 github.com/stretchr/testify/require
-# github.com/yuin/goldmark v1.7.13
+# github.com/yuin/goldmark v1.8.2
 ## explicit; go 1.22
 github.com/yuin/goldmark
 github.com/yuin/goldmark/ast
@@ -276,12 +306,20 @@ github.com/yuin/goldmark/util
 github.com/yuin/goldmark-emoji
 github.com/yuin/goldmark-emoji/ast
 github.com/yuin/goldmark-emoji/definition
-# golang.org/x/image v0.31.0
-## explicit; go 1.24.0
+# golang.org/x/image v0.41.0
+## explicit; go 1.25.0
 golang.org/x/image/bmp
 golang.org/x/image/ccitt
 golang.org/x/image/colornames
 golang.org/x/image/draw
+golang.org/x/image/font
+golang.org/x/image/font/basicfont
+golang.org/x/image/font/gofont/gobold
+golang.org/x/image/font/gofont/gobolditalic
+golang.org/x/image/font/gofont/goitalic
+golang.org/x/image/font/gofont/goregular
+golang.org/x/image/font/opentype
+golang.org/x/image/font/sfnt
 golang.org/x/image/math/f64
 golang.org/x/image/math/fixed
 golang.org/x/image/riff
@@ -291,18 +329,18 @@ golang.org/x/image/vector
 golang.org/x/image/vp8
 golang.org/x/image/vp8l
 golang.org/x/image/webp
-# golang.org/x/net v0.44.0
-## explicit; go 1.24.0
+# golang.org/x/net v0.55.0
+## explicit; go 1.25.0
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/html/charset
-# golang.org/x/sys v0.36.0
-## explicit; go 1.24.0
+# golang.org/x/sys v0.45.0
+## explicit; go 1.25.0
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 golang.org/x/sys/windows/registry
-# golang.org/x/text v0.29.0
-## explicit; go 1.24.0
+# golang.org/x/text v0.37.0
+## explicit; go 1.25.0
 golang.org/x/text/encoding
 golang.org/x/text/encoding/charmap
 golang.org/x/text/encoding/htmlindex
@@ -324,3 +362,4 @@ golang.org/x/text/unicode/bidi
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
+# codeberg.org/go-latex/latex => ./third_party/codeberg.org/go-latex/latex

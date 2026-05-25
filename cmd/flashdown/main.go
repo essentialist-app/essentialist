@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/essentialist-app/essentialist/internal"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
-	"github.com/essentialist-app/essentialist/internal"
 )
 
 const (

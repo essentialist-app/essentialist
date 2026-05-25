@@ -1,8 +1,6 @@
 package internal
 
 import (
-	"io/ioutil"
-	"log"
 	"os"
 	"testing"
 	"time"
@@ -27,11 +25,12 @@ func TestMissingAnswer(t *testing.T) {
 }
 
 func TestCreateDB(t *testing.T) {
-	file, err := ioutil.TempFile("samples/testdata", "deck")
+	file, err := os.CreateTemp(t.TempDir(), "deck")
 	if err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 	}
-	defer os.Remove(file.Name())
+	defer file.Close()
+
 	_, err = file.Write([]byte(`
 ## question 1
 answer 1
@@ -42,6 +41,7 @@ answer 2
 		t.Fatalf("write error: %s", err)
 	}
 	file.Close()
+
 	d, err := NewDeckFromFile(file.Name())
 	if err != nil {
 		t.Fatal(err)
@@ -50,5 +50,4 @@ answer 2
 	if err != nil {
 		t.Error(err)
 	}
-	os.Remove(file.Name() + ".db")
 }

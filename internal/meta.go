@@ -5,7 +5,6 @@ import (
 	"errors"
 	"hash/fnv"
 	"io"
-	"io/ioutil"
 	"strings"
 	"time"
 
@@ -138,7 +137,7 @@ func Hash(card Card) Digest {
 
 func readDB(r io.Reader) ([]Meta, error) {
 	metas := make([]Meta, 0)
-	bytes, err := ioutil.ReadAll(r)
+	bytes, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}

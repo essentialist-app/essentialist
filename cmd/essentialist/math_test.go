@@ -204,4 +204,3 @@ func TestRenderMath_SummationLimits(t *testing.T) {
 		})
 	}
 }
-

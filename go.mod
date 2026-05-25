@@ -3,57 +3,56 @@ module github.com/essentialist-app/essentialist
 go 1.25.0
 
 require (
-	codeberg.org/go-latex/latex v0.2.0
-	fyne.io/fyne/v2 v2.6.3
-	git.sr.ht/~sbinet/gg v0.7.0
+	codeberg.org/go-latex/latex v0.3.0
+	fyne.io/fyne/v2 v2.7.4
+	git.sr.ht/~sbinet/gg v0.8.0
 	github.com/MichaelMure/go-term-markdown v0.1.4
 	github.com/Xuanwo/go-locale v1.1.3
-	github.com/fatih/color v1.18.0
+	github.com/fatih/color v1.19.0
 	github.com/gizak/termui/v3 v3.1.0
-	github.com/nicksnyder/go-i18n/v2 v2.6.0
+	github.com/nicksnyder/go-i18n/v2 v2.6.1
 	github.com/open-spaced-repetition/go-fsrs v1.2.1
 	github.com/stretchr/testify v1.11.1
-	github.com/yuin/goldmark v1.7.13
+	github.com/yuin/goldmark v1.8.2
 	github.com/yuin/goldmark-emoji v1.0.6
-	golang.org/x/image v0.40.0
+	golang.org/x/image v0.41.0
 	golang.org/x/text v0.37.0
 )
 
 require (
-	codeberg.org/go-fonts/latin-modern v0.4.0 // indirect
-	codeberg.org/go-fonts/liberation v0.5.0 // indirect
-	fyne.io/systray v1.11.0 // indirect
-	github.com/BurntSushi/toml v1.5.0 // indirect
+	codeberg.org/go-fonts/liberation v0.6.0 // indirect
+	fyne.io/systray v1.12.1 // indirect
+	github.com/BurntSushi/toml v1.6.0 // indirect
 	github.com/MichaelMure/go-term-text v0.3.1 // indirect
 	github.com/alecthomas/chroma v0.10.0 // indirect
-	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
+	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect
-	github.com/dlclark/regexp2 v1.11.5 // indirect
+	github.com/dlclark/regexp2 v1.12.0 // indirect
 	github.com/eliukblau/pixterm/pkg/ansimage v0.0.0-20191210081756-9fb6cf8c2f75 // indirect
 	github.com/fredbi/uri v1.1.1 // indirect
-	github.com/fsnotify/fsnotify v1.9.0 // indirect
+	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/fyne-io/gl-js v0.2.0 // indirect
 	github.com/fyne-io/glfw-js v0.3.0 // indirect
 	github.com/fyne-io/image v0.1.1 // indirect
 	github.com/fyne-io/oksvg v0.2.0 // indirect
-	github.com/go-gl/gl v0.0.0-20231021071112-07e5d0ea2e71 // indirect
-	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20250301202403-da16c1255728 // indirect
-	github.com/go-text/render v0.2.0 // indirect
-	github.com/go-text/typesetting v0.3.0 // indirect
-	github.com/godbus/dbus/v5 v5.1.0 // indirect
+	github.com/go-gl/gl v0.0.0-20260331235117-4566fea9a276 // indirect
+	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20260406072232-3ac4aa2bb164 // indirect
+	github.com/go-text/render v0.2.1 // indirect
+	github.com/go-text/typesetting v0.3.4 // indirect
+	github.com/godbus/dbus/v5 v5.2.2 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
-	github.com/gomarkdown/markdown v0.0.0-20250810172220-2e2c11897d1a // indirect
+	github.com/gomarkdown/markdown v0.0.0-20260417124207-7d523f7318df // indirect
 	github.com/hack-pad/go-indexeddb v0.3.2 // indirect
 	github.com/hack-pad/safejs v0.1.1 // indirect
 	github.com/jeandeaual/go-locale v0.0.0-20250612000132-0ef82f21eade // indirect
 	github.com/jsummers/gobmp v0.0.0-20230614200233-a9de23ed2e25 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/kyokomi/emoji/v2 v2.2.13 // indirect
-	github.com/lucasb-eyer/go-colorful v1.3.0 // indirect
+	github.com/lucasb-eyer/go-colorful v1.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
-	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-runewidth v0.0.19 // indirect
+	github.com/mattn/go-isatty v0.0.22 // indirect
+	github.com/mattn/go-runewidth v0.0.23 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/nsf/termbox-go v1.1.1 // indirect
@@ -61,8 +60,8 @@ require (
 	github.com/rymdport/portal v0.4.2 // indirect
 	github.com/srwiley/oksvg v0.0.0-20221011165216-be6e8873101c // indirect
 	github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef // indirect
-	golang.org/x/net v0.44.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
+	golang.org/x/net v0.55.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 

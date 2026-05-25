@@ -14,9 +14,9 @@ import (
 	"io"
 	"math"
 
-	"git.sr.ht/~sbinet/gg"
 	"codeberg.org/go-latex/latex/drawtex"
 	"codeberg.org/go-latex/latex/mtex"
+	"git.sr.ht/~sbinet/gg"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 )

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"regexp"
 	"strings"
 )
@@ -80,7 +79,7 @@ func parseCards(md string, deckPath string) ([]Card, error) {
 }
 
 func readCards(r io.Reader, deckPath string) ([]Card, error) {
-	dat, err := ioutil.ReadAll(r)
+	dat, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}

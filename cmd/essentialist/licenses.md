@@ -2,11 +2,79 @@
 
 
 
+### codeberg.org/go-fonts/liberation
+
+* Name: codeberg.org/go-fonts/liberation
+* Version: v0.6.0
+* License: [BSD-3-Clause](https://codeberg.org/go-fonts/liberation/src/tag/v0.6.0/LICENSE)
+
+```
+Copyright ©2020 The go-fonts Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the go-fonts project nor the names of its authors and
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+```
+
+
+### codeberg.org/go-latex/latex
+
+* Name: codeberg.org/go-latex/latex
+* Version: Unknown
+* License: [BSD-3-Clause](Unknown)
+
+```
+Copyright ©2020 The go-latex Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the go-latex project nor the names of its authors and
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+```
+
+
 ### fyne.io/fyne/v2
 
 * Name: fyne.io/fyne/v2
-* Version: v2.6.3
-* License: [BSD-3-Clause](https://github.com/fyne-io/fyne/blob/v2.6.3/LICENSE)
+* Version: v2.7.4
+* License: [BSD-3-Clause](https://github.com/fyne-io/fyne/blob/v2.7.4/LICENSE)
 
 ```
 BSD 3-Clause License
@@ -44,8 +112,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ### fyne.io/systray
 
 * Name: fyne.io/systray
-* Version: v1.11.0
-* License: [Apache-2.0](https://github.com/fyne-io/systray/blob/v1.11.0/LICENSE)
+* Version: v1.12.1
+* License: [Apache-2.0](https://github.com/fyne-io/systray/blob/v1.12.1/LICENSE)
 
 ```
 
@@ -254,11 +322,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 
+### git.sr.ht/~sbinet/gg
+
+* Name: git.sr.ht/~sbinet/gg
+* Version: v0.8.0
+* License: [MIT](https://git.sr.ht/~sbinet/gg/tree/v0.8.0/LICENSE.md)
+
+```
+Copyright (C) 2022 The gg Authors
+Copyright (C) 2016 Michael Fogleman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+```
+
+
 ### github.com/BurntSushi/toml
 
 * Name: github.com/BurntSushi/toml
-* Version: v1.5.0
-* License: [MIT](https://github.com/BurntSushi/toml/blob/v1.5.0/COPYING)
+* Version: v1.6.0
+* License: [MIT](https://github.com/BurntSushi/toml/blob/v1.6.0/COPYING)
 
 ```
 The MIT License (MIT)
@@ -592,11 +691,11 @@ SOFTWARE.
 ```
 
 
-### github.com/clipperhouse/uax29/v2
+### github.com/clipperhouse/uax29/v2/graphemes
 
-* Name: github.com/clipperhouse/uax29/v2
-* Version: v2.2.0
-* License: [MIT](https://github.com/clipperhouse/uax29/blob/v2.2.0/LICENSE)
+* Name: github.com/clipperhouse/uax29/v2/graphemes
+* Version: v2.7.0
+* License: [MIT](https://github.com/clipperhouse/uax29/blob/v2.7.0/LICENSE)
 
 ```
 MIT License
@@ -620,6 +719,32 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+```
+
+
+### github.com/davecgh/go-spew/spew
+
+* Name: github.com/davecgh/go-spew/spew
+* Version: v1.1.1
+* License: [ISC](https://github.com/davecgh/go-spew/blob/v1.1.1/LICENSE)
+
+```
+ISC License
+
+Copyright (c) 2012-2016 Dave Collins <dave@davec.name>
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ```
 
@@ -659,8 +784,8 @@ SOFTWARE.
 ### github.com/dlclark/regexp2
 
 * Name: github.com/dlclark/regexp2
-* Version: v1.11.5
-* License: [MIT](https://github.com/dlclark/regexp2/blob/v1.11.5/LICENSE)
+* Version: v1.12.0
+* License: [MIT](https://github.com/dlclark/regexp2/blob/v1.12.0/LICENSE)
 
 ```
 The MIT License (MIT)

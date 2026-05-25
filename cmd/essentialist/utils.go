@@ -31,8 +31,8 @@ const (
 
 	// possible themes in the settings
 	defaultTheme themeName = "user default"
-	lightTheme themeName = "light"
-	darkTheme themeName = "dark"
+	lightTheme   themeName = "light"
+	darkTheme    themeName = "dark"
 )
 
 // overrideDirectory is used to specify a directory as an argument.
@@ -56,9 +56,9 @@ func getTheme() fyne.Theme {
 	themeName := getThemeName()
 	switch themeName {
 	case lightTheme:
-    return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantLight}
+		return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantLight}
 	case darkTheme:
-    return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantDark}
+		return &customTheme{Theme: theme.DefaultTheme(), variant: theme.VariantDark}
 	case defaultTheme:
 		return theme.DefaultTheme()
 	}

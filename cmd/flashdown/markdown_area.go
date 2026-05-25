@@ -4,48 +4,48 @@ import (
 	"image"
 
 	"github.com/fatih/color"
-	. "github.com/gizak/termui/v3"
+	ui "github.com/gizak/termui/v3"
 
 	markdown "github.com/MichaelMure/go-term-markdown"
 )
 
 type MarkdownArea struct {
-	Block
+	ui.Block
 	Text      string
-	TextStyle Style
+	TextStyle ui.Style
 }
 
 func NewMarkdownArea() *MarkdownArea {
 	return &MarkdownArea{
-		Block:     *NewBlock(),
-		TextStyle: StyleClear,
+		Block:     *ui.NewBlock(),
+		TextStyle: ui.StyleClear,
 	}
 }
 
 // convertAnsi walks cells and replace terminal output sequence with
 // the corresponding Style.
-func convertAnsi(cells []Cell) []Cell {
+func convertAnsi(cells []ui.Cell) []ui.Cell {
 
 	const (
-		AttrUnderline Modifier = 1 << 13
+		AttrUnderline ui.Modifier = 1 << 13
 	)
-	modifierOn := func(mod Modifier) func(Style) Style {
-		return func(s Style) Style {
+	modifierOn := func(mod ui.Modifier) func(ui.Style) ui.Style {
+		return func(s ui.Style) ui.Style {
 			s.Modifier = mod
 			return s
 		}
 	}
-	modifierClear := func(s Style) Style {
-		s.Modifier = ModifierClear
+	modifierClear := func(s ui.Style) ui.Style {
+		s.Modifier = ui.ModifierClear
 		return s
 	}
 	NormalText := modifierClear
-	BoldText := modifierOn(ModifierBold)
+	BoldText := modifierOn(ui.ModifierBold)
 	BoldTextOff := modifierClear
 	ItalicText := modifierOn(AttrUnderline)
 	ItalicTextOff := modifierClear
 
-	styles := map[string]func(s Style) Style{
+	styles := map[string]func(s ui.Style) ui.Style{
 		"\x1b[0m":  NormalText, // Turn off all attributes
 		"\x1b[1m":  BoldText,
 		"\x1b[22m": BoldTextOff,
@@ -82,22 +82,22 @@ func convertAnsi(cells []Cell) []Cell {
 	return cells
 }
 
-func (self *MarkdownArea) Draw(buf *Buffer) {
+func (self *MarkdownArea) Draw(buf *ui.Buffer) {
 	self.Block.Draw(buf)
 
 	color.NoColor = true
 	output := markdown.Render(self.Text, self.Inner.Dx(), 0)
 	text := string(output)
 
-	cells := ParseStyles(text, self.TextStyle)
+	cells := ui.ParseStyles(text, self.TextStyle)
 	cells = convertAnsi(cells)
-	cells = WrapCells(cells, uint(self.Inner.Dx()))
+	cells = ui.WrapCells(cells, uint(self.Inner.Dx()))
 
-	rows := SplitCells(cells, '\n')
+	rows := ui.SplitCells(cells, '\n')
 
 	width := 0
 	height := len(rows)
-	for y, _ := range rows {
+	for y := range rows {
 		if width < len(rows[y]) {
 			width = len(rows[y])
 		}
@@ -115,8 +115,8 @@ func (self *MarkdownArea) Draw(buf *Buffer) {
 		if y+self.Inner.Min.Y >= self.Inner.Max.Y {
 			break
 		}
-		row = TrimCells(row, self.Inner.Dx())
-		for _, cx := range BuildCellWithXArray(row) {
+		row = ui.TrimCells(row, self.Inner.Dx())
+		for _, cx := range ui.BuildCellWithXArray(row) {
 			x, cell := cx.X+dx, cx.Cell
 			buf.SetCell(cell, image.Pt(x, y).Add(self.Inner.Min))
 		}
