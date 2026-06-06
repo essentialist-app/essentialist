@@ -35,7 +35,7 @@ func (s *AboutScreen) Show(app Application) {
 					widget.NewLabel("Essentialist"),
 					NewRichTextFromMarkdown("Site: [https://essentialist.app](https://essentialist.app)"),
 					NewRichTextFromMarkdown("Author: [github.com/lugu](https://github.com/lugu)"),
-					widget.NewLabel("Version: 0.3.22"),
+					widget.NewLabel("Version: 0.4.0"),
 					NewRichTextFromMarkdown(licenses),
 				),
 			),
