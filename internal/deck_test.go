@@ -18,9 +18,13 @@ func TestOpenDeck(t *testing.T) {
 }
 
 func TestMissingAnswer(t *testing.T) {
-	_, err := NewDeckFromFile("samples/testdata/test-2.md")
-	if err == nil {
-		t.Error("missing error")
+	d, err := NewDeckFromFile("samples/testdata/test-2.md")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	// The file has 5 questions, but question 5 has no answer and should be skipped
+	if len(d.Cards) != 4 {
+		t.Errorf("Expected 4 cards (skipping the one with no answer), got %d", len(d.Cards))
 	}
 }
 

@@ -71,7 +71,7 @@ Text 3
 `
 	deck := fmt.Sprintf(template, "```", "```")
 
-	cards, lines := splitCards(deck)
+	cards, lines, _ := splitCards(deck)
 	if len(cards) != 3 {
 		t.Errorf("Wrong size: %d", len(cards))
 	}
@@ -88,6 +88,113 @@ Some code
 %s
 `, "```", "```") {
 		t.Errorf("Wrong card: %s", cards[1])
+	}
+}
+
+func TestMultipleHeaderLevels(t *testing.T) {
+	input := `# H1 Question
+This is an H1 answer
+
+## H2 Question
+This is an H2 answer
+
+### H3 Question
+This is an H3 answer
+
+#### H4 Question
+This is an H4 answer
+`
+	expected := []Card{
+		{
+			Question: "H1 Question",
+			Answer:   "This is an H1 answer",
+		},
+		{
+			Question: "H1 Question ‒> H2 Question",
+			Answer:   "This is an H2 answer",
+		},
+		{
+			Question: "H1 Question ‒> H2 Question ‒> H3 Question",
+			Answer:   "This is an H3 answer",
+		},
+		{
+			Question: "H1 Question ‒> H2 Question ‒> H3 Question ‒> H4 Question",
+			Answer:   "This is an H4 answer",
+		},
+	}
+	cards, err := readCards(bytes.NewBufferString(input), "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(cards) != len(expected) {
+		t.Fatalf("Wrong length: got %d, want %d", len(cards), len(expected))
+	}
+	for i, card := range cards {
+		if card.Question != expected[i].Question {
+			t.Errorf("Card %d Question: got %q, want %q",
+				i, card.Question, expected[i].Question)
+		}
+		if card.Answer != expected[i].Answer {
+			t.Errorf("Card %d Answer: got %q, want %q",
+				i, card.Answer, expected[i].Answer)
+		}
+	}
+}
+
+func TestHierarchicalQuestions(t *testing.T) {
+	input := `# Main Topic
+Some intro text
+
+## Subtopic 1
+Answer for subtopic 1
+
+### Detail 1
+Answer for detail 1
+
+### Detail 2
+Answer for detail 2
+
+## Subtopic 2
+Answer for subtopic 2
+`
+	expected := []Card{
+		{
+			Question: "Main Topic",
+			Answer:   "Some intro text",
+		},
+		{
+			Question: "Main Topic ‒> Subtopic 1",
+			Answer:   "Answer for subtopic 1",
+		},
+		{
+			Question: "Main Topic ‒> Subtopic 1 ‒> Detail 1",
+			Answer:   "Answer for detail 1",
+		},
+		{
+			Question: "Main Topic ‒> Subtopic 1 ‒> Detail 2",
+			Answer:   "Answer for detail 2",
+		},
+		{
+			Question: "Main Topic ‒> Subtopic 2",
+			Answer:   "Answer for subtopic 2",
+		},
+	}
+	cards, err := readCards(bytes.NewBufferString(input), "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(cards) != len(expected) {
+		t.Fatalf("Wrong length: got %d, want %d", len(cards), len(expected))
+	}
+	for i, card := range cards {
+		if card.Question != expected[i].Question {
+			t.Errorf("Card %d Question: got %q, want %q",
+				i, card.Question, expected[i].Question)
+		}
+		if card.Answer != expected[i].Answer {
+			t.Errorf("Card %d Answer: got %q, want %q",
+				i, card.Answer, expected[i].Answer)
+		}
 	}
 }
 
